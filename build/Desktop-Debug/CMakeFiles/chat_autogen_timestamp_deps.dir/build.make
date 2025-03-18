@@ -68,6 +68,7 @@ include CMakeFiles/chat_autogen_timestamp_deps.dir/progress.make
 
 CMakeFiles/chat_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.13
 CMakeFiles/chat_autogen_timestamp_deps: /usr/lib/qt5/bin/uic
+CMakeFiles/chat_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.13
 CMakeFiles/chat_autogen_timestamp_deps: /usr/lib/qt5/bin/moc
 
 chat_autogen_timestamp_deps: CMakeFiles/chat_autogen_timestamp_deps

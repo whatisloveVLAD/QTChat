@@ -4,6 +4,7 @@
 
 ChatWindow::ChatWindow()
 {
+    nexBlockSize =0;
     chatDisplay = new QTextEdit(this);
     chatDisplay->setReadOnly(true);
     chatDisplay->setStyleSheet("background-color: #f5f5f5; font-size: 14px; padding: 10px;");
@@ -38,12 +39,62 @@ ChatWindow::ChatWindow()
     setLayout(mainLayout);
 
     connect(sendButton, &QPushButton::clicked, this, &ChatWindow::sendMessage);
+
+    socket = new QTcpSocket(this);
+    connect(socket,&QTcpSocket::readyRead,this,&ChatWindow::slotReadyRead);
+    connect(socket,&QTcpSocket::disconnected,socket,&QTcpSocket::deleteLater);
+
+    socket->connectToHost("127.0.0.1", 1600);
+
+
+
+
 }
 
 void ChatWindow::sendMessage() {
     QString message = messageInput->toPlainText().trimmed();
     if (!message.isEmpty()) {
-        chatDisplay->append("<b>Вы:</b> " + message);
+       // chatDisplay->append("<b>Вы:</b> " + message);
+
+        sendToServer(message);
         messageInput->clear();
     }
+}
+void ChatWindow::slotReadyRead(){
+    QDataStream in(socket);
+    in.setVersion(QDataStream::Qt_5_0);
+    if(in.status() == QDataStream::Ok){
+        // QString str;
+        // in >> str;
+        // chatDisplay -> append(str);
+        while(true){
+            if(nexBlockSize == 0){
+                if(socket->bytesAvailable() < 2){
+                    break;
+                }
+                in >> nexBlockSize;
+            }
+            if(socket->bytesAvailable() < nexBlockSize){
+                break;
+            }
+            QString str;
+            QTime time;
+            in >>time >> str;
+            nexBlockSize = 0;
+            chatDisplay -> append(time.toString() + " " + str);
+        }
+    }else{
+        chatDisplay -> append("error");
+    }
+
+}
+void ChatWindow::sendToServer(QString str){
+    Data.clear();
+    QDataStream out(&Data,QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_0);
+    out << quint16(0)<<QTime::currentTime() <<str;
+    out.device()->seek(0);
+    out<< quint16(Data.size()-sizeof(quint16));
+    socket->write(Data);
+
 }

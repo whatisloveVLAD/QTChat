@@ -148,6 +148,7 @@ chat: CMakeFiles/chat.dir/mainwindow.cpp.o
 chat: CMakeFiles/chat.dir/chatwindow.cpp.o
 chat: CMakeFiles/chat.dir/build.make
 chat: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.13
+chat: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.13
 chat: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.13
 chat: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.13
 chat: CMakeFiles/chat.dir/link.txt
