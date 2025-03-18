@@ -81,7 +81,7 @@ void ChatWindow::slotReadyRead(){
             QTime time;
             in >>time >> str;
             nexBlockSize = 0;
-            chatDisplay -> append(time.toString() + " " + str);
+            chatDisplay -> append(time.toString() + str);
         }
     }else{
         chatDisplay -> append("error");

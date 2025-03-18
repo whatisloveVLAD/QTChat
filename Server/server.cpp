@@ -16,10 +16,13 @@ void server::incomingConnection(qintptr socketDescriptor){
     socket = new QTcpSocket;
     socket->setSocketDescriptor(socketDescriptor);
     connect(socket,&QTcpSocket::readyRead,this, &server::slotReadyRead);
-    connect(socket,&QTcpSocket::disconnected,this,&QTcpSocket::deleteLater);
+    connect(socket,&QTcpSocket::disconnected,this, &server::clientDisconnected);
 
 
     Sockets.push_back(socket);
+
+    QString clientName = "Client_" + QString::number(Sockets.size());
+    clients[socket] = clientName;
     qDebug() << "new connected client" << socketDescriptor;
 
 }
@@ -52,7 +55,10 @@ void server::slotReadyRead()
             in >> time >> str;
             nextBlockSize = 0;
              qDebug() << str;
-            sendToCLient(str);
+            QString clientName = clients.value(socket, "Unknown");
+            qDebug() << "[" << clientName << "] " << str;
+
+            sendToCLient(clientName + ": " + str);
             break;
         }
 
@@ -72,4 +78,18 @@ void server::sendToCLient(QString str){
     for(int i= 0; i< Sockets.size();i++){
         Sockets[i]->write(Data);
     }
+
 }
+void server::clientDisconnected() {
+    QTcpSocket* clientSocket = qobject_cast<QTcpSocket*>(sender());
+    if (!clientSocket) return;
+
+    qDebug() << "Client disconnected: " << clients[clientSocket];
+
+
+    Sockets.removeOne(clientSocket);
+    clients.remove(clientSocket);
+
+    clientSocket->deleteLater();
+}
+

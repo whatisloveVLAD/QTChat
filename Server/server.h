@@ -18,10 +18,12 @@ private:
     QByteArray Data;
     void sendToCLient(QString str);
     quint16 nextBlockSize;
+    QMap<QTcpSocket*, QString> clients;
 
 public slots:
     void incomingConnection(qintptr socketDescriptor);
     void slotReadyRead();
+    void clientDisconnected();
 };
 
 
