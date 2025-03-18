@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "" "chat_autogen/timestamp" "custom" "chat_autogen/deps"
   "/home/vlad/projects/qtProjects/chat/build/Desktop-Debug/chat_autogen/mocs_compilation.cpp" "CMakeFiles/chat.dir/chat_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/chat.dir/chat_autogen/mocs_compilation.cpp.o.d"
+  "/home/vlad/projects/qtProjects/chat/chatwindow.cpp" "CMakeFiles/chat.dir/chatwindow.cpp.o" "gcc" "CMakeFiles/chat.dir/chatwindow.cpp.o.d"
   "/home/vlad/projects/qtProjects/chat/main.cpp" "CMakeFiles/chat.dir/main.cpp.o" "gcc" "CMakeFiles/chat.dir/main.cpp.o.d"
   "/home/vlad/projects/qtProjects/chat/mainwindow.cpp" "CMakeFiles/chat.dir/mainwindow.cpp.o" "gcc" "CMakeFiles/chat.dir/mainwindow.cpp.o.d"
   )

@@ -1,11 +1,15 @@
-#include "mainwindow.h"
-
 #include <QApplication>
+#include "chatwindow.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+
+    ChatWindow window;
+    window.setWindowTitle("Чат");
+    window.setStyleSheet("background-color: #eeeeee;");
+    window.resize(400, 600);
+    window.show();
+
     return a.exec();
 }
