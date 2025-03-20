@@ -273,4 +273,6 @@ CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDataStream \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatastream.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTime \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/QUdpSocket \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qudpsocket.h

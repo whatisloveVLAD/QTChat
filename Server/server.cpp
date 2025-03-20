@@ -8,7 +8,9 @@ server::server() {
         qDebug() << "Error";
     }
     nextBlockSize =0;
-
+    udpSocket = new QUdpSocket(this);
+    udpSocket->bind(QHostAddress::AnyIPv4, 1601, QUdpSocket::ReuseAddressHint);
+    connect(udpSocket, &QUdpSocket::readyRead, this, &server::processUdpRequest);
 }
 
 
@@ -93,3 +95,19 @@ void server::clientDisconnected() {
     clientSocket->deleteLater();
 }
 
+void server::processUdpRequest() {
+    while (udpSocket->hasPendingDatagrams()) {
+        QHostAddress sender;
+        quint16 senderPort;
+        QByteArray datagram;
+        datagram.resize(udpSocket->pendingDatagramSize());
+        udpSocket->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
+
+        qDebug() << "Received UDP request from" << sender.toString();
+
+
+        QByteArray response = "ServerAvailable " + sender.toString().toUtf8() + " 1600";
+
+        udpSocket->writeDatagram(response, sender, senderPort);
+    }
+}

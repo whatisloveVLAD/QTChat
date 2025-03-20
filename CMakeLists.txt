@@ -40,6 +40,7 @@ else()
         add_executable(chat
             ${PROJECT_SOURCES}
             chatwindow.h chatwindow.cpp
+
         )
     endif()
 endif()

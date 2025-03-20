@@ -316,12 +316,14 @@ Server_autogen/timestamp: \
 	/usr/include/x86_64-linux-gnu/qt5/QtCore/qversiontagging.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/QTcpServer \
 	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/QTcpSocket \
+	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/QUdpSocket \
 	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qabstractsocket.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qhostaddress.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtcpserver.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtcpsocket.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetwork-config.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetworkglobal.h \
+	/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qudpsocket.h \
 	/usr/include/x86_64-linux-gnu/sys/cdefs.h \
 	/usr/include/x86_64-linux-gnu/sys/syscall.h \
 	/usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h \

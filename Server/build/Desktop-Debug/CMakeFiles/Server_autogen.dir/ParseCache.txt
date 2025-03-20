@@ -312,12 +312,14 @@
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtCore/qversiontagging.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/QTcpServer
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/QTcpSocket
+ mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/QUdpSocket
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qabstractsocket.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qhostaddress.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtcpserver.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtcpsocket.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetwork-config.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetworkglobal.h
+ mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qudpsocket.h
  mdp:/usr/include/x86_64-linux-gnu/sys/cdefs.h
  mdp:/usr/include/x86_64-linux-gnu/sys/syscall.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h

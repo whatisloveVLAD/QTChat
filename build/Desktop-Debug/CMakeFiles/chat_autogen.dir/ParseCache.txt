@@ -3,6 +3,7 @@
  uic:./ui_mainwindow.h
 /home/vlad/projects/qtProjects/chat/main.cpp
 /home/vlad/projects/qtProjects/chat/chatwindow.cpp
+ uic:ui_mainwindow.h
 /home/vlad/projects/qtProjects/chat/mainwindow.h
  mmc:Q_OBJECT
  mdp:/home/vlad/projects/qtProjects/chat/build/Desktop-Debug/chat_autogen/moc_predefs.h
@@ -681,18 +682,23 @@
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtGui/qtransform.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/QTcpSocket
+ mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/QUdpSocket
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qabstractsocket.h
+ mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qhostaddress.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtcpsocket.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetwork-config.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetworkglobal.h
+ mdp:/usr/include/x86_64-linux-gnu/qt5/QtNetwork/qudpsocket.h
+ mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTextEdit
- mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h
+ mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h
+ mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtextedit.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgets-config.h
  mdp:/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h

@@ -1,35 +1,40 @@
 #ifndef CHATWINDOW_H
 #define CHATWINDOW_H
 
-#include <QWidget>
+#include <QMainWindow>
 #include <QTextEdit>
 #include <QPushButton>
 #include <QTcpSocket>
 #include <QTime>
+#include <QUdpSocket>
 
-class ChatWindow : public QWidget
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
+
+class ChatWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    ChatWindow();
+    explicit ChatWindow(QWidget *parent = nullptr);
+    ~ChatWindow();
 
 private slots:
     void sendMessage();
+    void slotReadyRead();
+    void searchForServers();
+    void processUdpResponse();
+
+    void on_connectToServer_clicked();
 
 private:
-    QTextEdit *chatDisplay;
-    QTextEdit *messageInput;
-    QPushButton *sendButton;
+    Ui::MainWindow *ui; // Подключаем UI
     QTcpSocket *socket;
     QByteArray Data;
-    void sendToServer(QString st);
     quint16 nexBlockSize;
-
-public slots:
-    void slotReadyRead();
+     QUdpSocket *udpSocket;
+    void sendToServer(QString st);
 };
-
-
 
 #endif // CHATWINDOW_H

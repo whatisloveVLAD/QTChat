@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QDataStream>
 #include <QTime>
+#include <QUdpSocket>
 
 class server : public QTcpServer
 {
@@ -12,6 +13,7 @@ class server : public QTcpServer
 public:
     server();
     QTcpSocket *socket;
+    void incomingConnection(qintptr socketDescriptor) override;
 
 private:
     QVector <QTcpSocket*> Sockets;
@@ -19,11 +21,12 @@ private:
     void sendToCLient(QString str);
     quint16 nextBlockSize;
     QMap<QTcpSocket*, QString> clients;
-
+    QUdpSocket* udpSocket;
 public slots:
-    void incomingConnection(qintptr socketDescriptor);
+
     void slotReadyRead();
     void clientDisconnected();
+    void processUdpRequest();
 };
 
 
