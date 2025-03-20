@@ -1,0 +1,9 @@
+/home/vlad/projects/qtProjects/chat/build/CMakeFiles/chat.dir
+/home/vlad/projects/qtProjects/chat/build/CMakeFiles/edit_cache.dir
+/home/vlad/projects/qtProjects/chat/build/CMakeFiles/rebuild_cache.dir
+/home/vlad/projects/qtProjects/chat/build/CMakeFiles/list_install_components.dir
+/home/vlad/projects/qtProjects/chat/build/CMakeFiles/install.dir
+/home/vlad/projects/qtProjects/chat/build/CMakeFiles/install/local.dir
+/home/vlad/projects/qtProjects/chat/build/CMakeFiles/install/strip.dir
+/home/vlad/projects/qtProjects/chat/build/CMakeFiles/chat_autogen_timestamp_deps.dir
+/home/vlad/projects/qtProjects/chat/build/CMakeFiles/chat_autogen.dir
