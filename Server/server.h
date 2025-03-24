@@ -11,7 +11,7 @@ class server : public QTcpServer
 {
     Q_OBJECT
 public:
-    server();
+    server(quint16);
     QTcpSocket *socket;
     void incomingConnection(qintptr socketDescriptor) override;
 

@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     ChatWindow window;
     window.setWindowTitle("Чат");
     window.setStyleSheet("background-color: #eeeeee;");
-    window.resize(400, 600);
+
     window.show();
 
     return a.exec();

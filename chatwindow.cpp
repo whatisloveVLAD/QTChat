@@ -8,7 +8,7 @@ ChatWindow::ChatWindow(QWidget *parent)
     ui->setupUi(this);
 
     nexBlockSize = 0;
-    setMinimumSize(650, 800);
+    //setMinimumSize(650, 800);
 
 
     ui->chatDisplay->setReadOnly(true);
@@ -48,6 +48,7 @@ void ChatWindow::searchForServers() {
     QByteArray request = "FindServer";qDebug() << "Отправка UDP-запроса на поиск сервера";
 
     udpSocket->writeDatagram(request, QHostAddress::Broadcast, 1601);
+    qDebug() << "UDP-запрос отправлен";
 }
 
 void ChatWindow::sendMessage() {
@@ -113,7 +114,10 @@ void ChatWindow::processUdpResponse() {
 }
 
 void ChatWindow::on_connectToServer_clicked() {
-
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+        socket->disconnectFromHost();
+        ui->chatDisplay->append("Отключено от сервера.");
+    }
     if (ui->chooseServer->currentIndex() == -1) {
         ui->chatDisplay->append("Выберите сервер из списка!");
         return;
@@ -131,6 +135,12 @@ void ChatWindow::on_connectToServer_clicked() {
 
     QString serverIp = parts[0];
     quint16 serverPort = parts[1].toUShort();
+
+    ui->chatDisplay->clear();
+    socket = new QTcpSocket(this);
+    connect(socket, &QTcpSocket::readyRead, this, &ChatWindow::slotReadyRead);
+    connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
+
 
 
     socket->connectToHost(serverIp, serverPort);

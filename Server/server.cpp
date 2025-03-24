@@ -1,9 +1,9 @@
 #include "server.h"
 
-server::server() {
-    if(this->listen(QHostAddress::Any,1600))
+server::server(quint16 port) {
+    if(this->listen(QHostAddress::Any,port))
     {
-        qDebug() << "Server has been started";
+        qDebug() << "Server has been started" << port;
     }else{
         qDebug() << "Error";
     }
@@ -106,7 +106,7 @@ void server::processUdpRequest() {
         qDebug() << "Received UDP request from" << sender.toString();
 
 
-        QByteArray response = "ServerAvailable " + sender.toString().toUtf8() + " 1600";
+        QByteArray response = "ServerAvailable " + sender.toString().toUtf8() +" " + QByteArray::number(serverPort());
 
         udpSocket->writeDatagram(response, sender, senderPort);
     }
