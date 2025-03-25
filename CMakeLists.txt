@@ -24,7 +24,8 @@ set(PROJECT_SOURCES
 )
 
 # Создаём исполняемый файл для Qt5
-add_executable(chat ${PROJECT_SOURCES})
+add_executable(chat ${PROJECT_SOURCES}
+    ClickLabel.h)
 
 # Линкуем с библиотеками Qt5
 target_link_libraries(chat PRIVATE Qt5::Widgets Qt5::Network)

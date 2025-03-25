@@ -18,10 +18,19 @@ public:
 private:
     QVector <QTcpSocket*> Sockets;
     QByteArray Data;
-    void sendToCLient(QString str);
+    void sendToCLient(const QVariant &data, QChar type);
     quint16 nextBlockSize;
     QMap<QTcpSocket*, QString> clients;
     QUdpSocket* udpSocket;
+    struct MessageHeader {
+        QChar type;
+
+    };
+private:
+    QMap<QTcpSocket*, QByteArray> imageBuffer;
+    QMap<QTcpSocket*, QByteArray>  tempImageBuffer;
+    QMap<QTcpSocket*, int> expectedImageSize;
+
 public slots:
 
     void slotReadyRead();

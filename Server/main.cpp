@@ -5,7 +5,6 @@ int main(int argc, char *argv[])
     quint16 port = 1700;
     QCoreApplication a(argc, argv);
 
-    // Создаем экземпляр сервера вне блоков if/else
     server* s = nullptr;
 
     if (argc > 1) {

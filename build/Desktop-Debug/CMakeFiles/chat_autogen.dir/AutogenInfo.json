@@ -83,6 +83,12 @@
 	"HEADERS" : 
 	[
 		[
+			"/home/vlad/projects/qtProjects/chat/ClickLabel.h",
+			"MU",
+			"EWIEGA46WW/moc_ClickLabel.cpp",
+			null
+		],
+		[
 			"/home/vlad/projects/qtProjects/chat/chatwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_chatwindow.cpp",

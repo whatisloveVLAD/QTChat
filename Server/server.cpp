@@ -30,58 +30,139 @@ void server::incomingConnection(qintptr socketDescriptor){
 }
 
 
-void server::slotReadyRead()
-{
-    socket  = (QTcpSocket*)sender();
+void server::slotReadyRead() {
+    socket = (QTcpSocket*)sender();
     QDataStream in(socket);
-
     in.setVersion(QDataStream::Qt_5_0);
-    if(in.status() == QDataStream::Ok)
-    {
-        qDebug() << "ok";
-        while(true){
-            if(nextBlockSize == 0){
-                 qDebug() << "nextBlockSize == 0";
-                if(socket->bytesAvailable() < 2){
-                      qDebug() << "Data < 2 , break";
-                    break;
-                }
-                in >> nextBlockSize;
-                qDebug() << " nextBlockSize==" << nextBlockSize;
+
+    if (in.status() != QDataStream::Ok) {
+        qDebug() << "Ошибка чтения данных!";
+        return;
+    }
+
+    while (socket->bytesAvailable() > 0) {
+        if (nextBlockSize == 0) {
+            if (socket->bytesAvailable() < sizeof(quint16)) {
+                return;
             }
-            if(socket->bytesAvailable() < nextBlockSize){
-                break;
-            }
+            in >> nextBlockSize;
+        }
+
+        if (socket->bytesAvailable() < nextBlockSize) {
+            return;
+        }
+
+        MessageHeader header;
+        in >> header.type;
+         if (header.type != 'S') {
+        QTime time;
+        in >> time;
+         }
+        qDebug() << "Получено сообщение типа:" << header.type;
+
+        if (header.type == 'M') {
             QString str;
-            QTime time;
-            in >> time >> str;
+            in >> str;
             nextBlockSize = 0;
-             qDebug() << str;
+
             QString clientName = clients.value(socket, "Unknown");
             qDebug() << "[" << clientName << "] " << str;
 
-            sendToCLient(clientName + ": " + str);
-            break;
+            sendToCLient(clientName + ": " + str, 'M'); // Передаем как текст
+        }
+        else if (header.type == 'I') {
+            QByteArray chunk;
+            in >> chunk;
+
+
+            if (expectedImageSize[socket] == 0) {
+                qDebug() << "Получен чанк изображения, но ожидаемый размер не установлен! Ожидаем 'S'.";
+                tempImageBuffer[socket].append(chunk);
+                return;
+            }
+
+            imageBuffer[socket].append(chunk);
+            nextBlockSize = 0;
+            qDebug() << "Получен чанк изображения, текущий размер буфера: " << imageBuffer[socket].size();
+
+            if (imageBuffer[socket].size() >= expectedImageSize[socket]) {
+                qDebug() << "Изображение получено полностью, размер: " << imageBuffer[socket].size();
+                sendToCLient(imageBuffer[socket], 'I');
+                imageBuffer[socket].clear();
+                expectedImageSize[socket] = 0;
+            }
+        }
+        else if (header.type == 'S') {
+            int totalSize =0;
+            in >> totalSize;
+            expectedImageSize[socket] = totalSize;
+            qDebug() << "Размер ожидаемого изображения " << expectedImageSize[socket];
+
+            imageBuffer[socket].clear();
+            nextBlockSize = 0;
+
+            if (!tempImageBuffer[socket].isEmpty()) {
+                imageBuffer[socket].append(tempImageBuffer[socket]);
+                tempImageBuffer[socket].clear();
+                qDebug() << "Перенесли отложенные чанки, текущий размер буфера: " << imageBuffer[socket].size();
+            }
+        }
+        else {
+            qDebug() << "Неизвестный тип данных:" << header.type;
+        }
+    }
+}
+
+
+
+void server::sendToCLient(const QVariant &data, QChar type) {
+    const int chunkSize = 64000;  // Чанк 64 KB
+    Data.clear();
+
+    if (type == 'I') {
+        QByteArray imageData = data.toByteArray();
+        int totalSize = imageData.size();
+        int sentSize = 0;
+
+        while (sentSize < totalSize) {
+            QByteArray chunk = imageData.mid(sentSize, chunkSize);
+            sentSize += chunk.size();
+
+            QByteArray packet;
+            QDataStream out(&packet, QIODevice::WriteOnly);
+            out.setVersion(QDataStream::Qt_5_0);
+
+            out << quint16(0) << type << QTime::currentTime();
+            out << chunk;
+            out << (sentSize >= totalSize);  // Перенести флаг в конец
+
+            out.device()->seek(0);
+            out << quint16(packet.size() - sizeof(quint16));
+
+            for (QTcpSocket *clientSocket : Sockets) {
+                clientSocket->write(packet);
+                clientSocket->waitForBytesWritten(100);
+            }
+
+            qDebug() << "Отправлен чанк изображения, размер: " << chunk.size();
         }
 
-    }else{
-        qDebug() << in.status();
-    }
+        qDebug() << "Изображение отправлено полностью!";
+    } else {
+        QDataStream out(&Data, QIODevice::WriteOnly);
+        out.setVersion(QDataStream::Qt_5_0);
+        out << quint16(0) << type << QTime::currentTime();
+        out << data.toString();
+        out.device()->seek(0);
+        out << quint16(Data.size() - sizeof(quint16));
 
+        for (QTcpSocket *clientSocket : Sockets) {
+            clientSocket->write(Data);
+        }
+    }
 }
 
-void server::sendToCLient(QString str){
-    Data.clear();
-    QDataStream out(&Data,QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_5_0);
-    out << quint16(0)<< QTime::currentTime()<<str;
-    out.device()->seek(0);
-    out<< quint16(Data.size()-sizeof(quint16));
-    for(int i= 0; i< Sockets.size();i++){
-        Sockets[i]->write(Data);
-    }
 
-}
 void server::clientDisconnected() {
     QTcpSocket* clientSocket = qobject_cast<QTcpSocket*>(sender());
     if (!clientSocket) return;
